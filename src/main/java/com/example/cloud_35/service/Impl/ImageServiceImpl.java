@@ -56,7 +56,9 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public List<ImageResponseDto> getAllImages() {
-        return List.of();
+        return repository.findAll().stream()
+                .map(img -> mapper.toImageResponseDto(img))
+                .toList();
     }
 
     @Override
@@ -65,8 +67,38 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public ImageResponseDto updateImage(Long id, ImageRequestDto requestDto) {
-        return null;
+    public ImageResponseDto updateImage(Long id, ImageRequestDto requestDto) throws IOException {
+
+        ImageEntity oldImage = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Image not found"));
+
+
+        if(requestDto == null){
+            return null;
+        }
+
+        if(requestDto.getFile() == null || requestDto.getFile().isEmpty()){
+            return null;
+        }
+
+        Map newImage = cloudService.uploadImage(requestDto.getFile());
+
+        String newUrl = newImage.get("url").toString();
+        String newPublicId = newImage.get("public_id").toString();
+
+        // delete image on cloudinary
+        cloudService.deleteImage(oldImage.getPublicId());
+
+        // set new data
+        oldImage.setName(requestDto.getName());
+        oldImage.setImageUrl(newUrl);
+        oldImage.setPublicId(newPublicId);
+
+        // save to db again
+        ImageEntity updated = repository.save(oldImage);
+
+        // map to response dto
+        return mapper.toImageResponseDto(updated);
     }
 
     @Override

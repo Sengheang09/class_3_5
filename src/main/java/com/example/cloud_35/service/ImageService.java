@@ -15,7 +15,7 @@ public interface ImageService {
 
     ImageResponseDto getImageById(Long id);
 
-    ImageResponseDto updateImage(Long id , ImageRequestDto requestDto);
+    ImageResponseDto updateImage(Long id , ImageRequestDto requestDto) throws IOException;
 
     void deleteImage(Long id);
 
