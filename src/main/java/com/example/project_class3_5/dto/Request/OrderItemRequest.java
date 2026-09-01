@@ -1,4 +1,4 @@
-package com.example.project_class3_5.dto;
+package com.example.project_class3_5.dto.Request;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class OrderItemRequest {
 
-    @NotNull
+    @NotNull(message = " Id is required.")
     private Long productId;
 
-    @Min(value = 1)
+    @Min(value = 1 , message = "Product quantity is required")
     private Integer quantity;
 
 }

@@ -16,3 +16,11 @@ public class Order {
     @OneToMany(mappedBy = "order" , cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 }
+// git init
+// git remote add origin https://github.com/Sengheang09/class_3_5.git
+// git remote -v
+// git checkout -b project
+// git add .
+// git commit -m "done with entities"
+// git push origin project
+
