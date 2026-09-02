@@ -1,20 +1,25 @@
 package com.example.project_class3_5.dto.Request;
 
-import com.example.project_class3_5.entities.OrderItem;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Builder
 public class OrderRequest {
-    @NotNull(message = " id is required")
+
+    @NotNull(message = "User ID is required")
     private Long userId;
 
-    private List<OrderItem> orderItems;
-
+    @NotEmpty(message = "Order items list must not be empty")
+    @Valid
+    private List<OrderItemRequest> orderItems;
 }

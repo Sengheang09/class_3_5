@@ -3,10 +3,7 @@ package com.example.project_class3_5.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -19,6 +16,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "tbl_category")
 public class Category {
 
@@ -26,8 +24,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "name must not be black")
-    @Size(min=2 , max=100 , message = "name must be between 2 to 100 characters")// (size>=2 && size<=100)
+    @NotBlank(message = "name must not be blank")
+    @Size(min=2 , max=100 , message = "name must be between 2 to 100 characters")
     private String name;
 
     @Size(max = 1000 , message = "description must be less than 1000")
@@ -39,7 +37,7 @@ public class Category {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    // category 1-----* product
     @OneToMany(mappedBy = "category" , cascade = CascadeType.ALL)
+    @Builder.Default
     private List<Product> products = new ArrayList<>();
 }
