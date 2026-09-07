@@ -22,9 +22,10 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NotBlank(message = "name must not be blank")
+    @Column(nullable = false, unique = true)
     @Size(min=2 , max=100 , message = "name must be between 2 to 100 characters")
     private String name;
 

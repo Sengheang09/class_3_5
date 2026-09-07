@@ -30,7 +30,7 @@ public class ProductRequest {
     private Integer stock;
 
     @NotNull(message = "Category ID must not be null")
-    private Integer categoryId;
+    private Long categoryId;
 
     private MultipartFile file;
 }
