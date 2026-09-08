@@ -14,12 +14,20 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class OrderResponse {
+
     private Long id;
+
     private Long userId;
+
     private String username;
+
     private LocalDateTime orderDate;
+
     private BigDecimal totalAmount;
+
     private String status;
+
     private LocalDateTime updatedAt;
+
     private List<OrderItemResponse> orderItems;
 }
