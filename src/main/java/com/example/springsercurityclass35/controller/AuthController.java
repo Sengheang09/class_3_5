@@ -1,5 +1,7 @@
 package com.example.springsercurityclass35.controller;
 
+import com.example.springsercurityclass35.dto.LoginRequestDto;
+import com.example.springsercurityclass35.dto.LoginResponse;
 import com.example.springsercurityclass35.dto.RegisterRequestDto;
 import com.example.springsercurityclass35.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,7 +28,6 @@ public class AuthController {
 
     @PostMapping
     @Operation(summary = "Register")
-    @PreAuthorize("ADMIN")
     public ResponseEntity<?> register(
             @Valid @RequestBody RegisterRequestDto registerRequestDto
     ) {
@@ -36,4 +37,9 @@ public class AuthController {
 
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(authService.login(loginRequestDto));
+    }
 }

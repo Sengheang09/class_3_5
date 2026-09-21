@@ -19,11 +19,13 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role_type")
     private RoleType name;
 
     public Role(RoleType name) {
         this.name = name;
     }
 
-    private Set<User> users = new HashSet<>();
+
 }
